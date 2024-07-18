@@ -1,0 +1,244 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> comando
+Rule 1     comando -> CREAR DATABASE IDENTIFICADOR PUNTOYCOMA
+Rule 2     comando -> USAR DATABASE IDENTIFICADOR PUNTOYCOMA
+Rule 3     comando -> CREAR TABLE IDENTIFICADOR LPAREN columnas RPAREN PUNTOYCOMA
+Rule 4     columnas -> columnas COMA columna
+Rule 5     columnas -> columna
+Rule 6     columna -> IDENTIFICADOR tipo
+Rule 7     tipo -> INT
+Rule 8     tipo -> VARCHAR LPAREN NUMERO RPAREN
+
+Terminals, with rules where they appear
+
+COMA                 : 4
+CREAR                : 1 3
+DATABASE             : 1 2
+IDENTIFICADOR        : 1 2 3 6
+INT                  : 7
+LPAREN               : 3 8
+NUMERO               : 8
+PUNTOYCOMA           : 1 2 3
+RPAREN               : 3 8
+TABLE                : 3
+USAR                 : 2
+VARCHAR              : 8
+error                : 
+
+Nonterminals, with rules where they appear
+
+columna              : 4 5
+columnas             : 3 4
+comando              : 0
+tipo                 : 6
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . comando
+    (1) comando -> . CREAR DATABASE IDENTIFICADOR PUNTOYCOMA
+    (2) comando -> . USAR DATABASE IDENTIFICADOR PUNTOYCOMA
+    (3) comando -> . CREAR TABLE IDENTIFICADOR LPAREN columnas RPAREN PUNTOYCOMA
+
+    CREAR           shift and go to state 2
+    USAR            shift and go to state 3
+
+    comando                        shift and go to state 1
+
+state 1
+
+    (0) S' -> comando .
+
+
+
+state 2
+
+    (1) comando -> CREAR . DATABASE IDENTIFICADOR PUNTOYCOMA
+    (3) comando -> CREAR . TABLE IDENTIFICADOR LPAREN columnas RPAREN PUNTOYCOMA
+
+    DATABASE        shift and go to state 4
+    TABLE           shift and go to state 5
+
+
+state 3
+
+    (2) comando -> USAR . DATABASE IDENTIFICADOR PUNTOYCOMA
+
+    DATABASE        shift and go to state 6
+
+
+state 4
+
+    (1) comando -> CREAR DATABASE . IDENTIFICADOR PUNTOYCOMA
+
+    IDENTIFICADOR   shift and go to state 7
+
+
+state 5
+
+    (3) comando -> CREAR TABLE . IDENTIFICADOR LPAREN columnas RPAREN PUNTOYCOMA
+
+    IDENTIFICADOR   shift and go to state 8
+
+
+state 6
+
+    (2) comando -> USAR DATABASE . IDENTIFICADOR PUNTOYCOMA
+
+    IDENTIFICADOR   shift and go to state 9
+
+
+state 7
+
+    (1) comando -> CREAR DATABASE IDENTIFICADOR . PUNTOYCOMA
+
+    PUNTOYCOMA      shift and go to state 10
+
+
+state 8
+
+    (3) comando -> CREAR TABLE IDENTIFICADOR . LPAREN columnas RPAREN PUNTOYCOMA
+
+    LPAREN          shift and go to state 11
+
+
+state 9
+
+    (2) comando -> USAR DATABASE IDENTIFICADOR . PUNTOYCOMA
+
+    PUNTOYCOMA      shift and go to state 12
+
+
+state 10
+
+    (1) comando -> CREAR DATABASE IDENTIFICADOR PUNTOYCOMA .
+
+    $end            reduce using rule 1 (comando -> CREAR DATABASE IDENTIFICADOR PUNTOYCOMA .)
+
+
+state 11
+
+    (3) comando -> CREAR TABLE IDENTIFICADOR LPAREN . columnas RPAREN PUNTOYCOMA
+    (4) columnas -> . columnas COMA columna
+    (5) columnas -> . columna
+    (6) columna -> . IDENTIFICADOR tipo
+
+    IDENTIFICADOR   shift and go to state 13
+
+    columnas                       shift and go to state 14
+    columna                        shift and go to state 15
+
+state 12
+
+    (2) comando -> USAR DATABASE IDENTIFICADOR PUNTOYCOMA .
+
+    $end            reduce using rule 2 (comando -> USAR DATABASE IDENTIFICADOR PUNTOYCOMA .)
+
+
+state 13
+
+    (6) columna -> IDENTIFICADOR . tipo
+    (7) tipo -> . INT
+    (8) tipo -> . VARCHAR LPAREN NUMERO RPAREN
+
+    INT             shift and go to state 17
+    VARCHAR         shift and go to state 18
+
+    tipo                           shift and go to state 16
+
+state 14
+
+    (3) comando -> CREAR TABLE IDENTIFICADOR LPAREN columnas . RPAREN PUNTOYCOMA
+    (4) columnas -> columnas . COMA columna
+
+    RPAREN          shift and go to state 19
+    COMA            shift and go to state 20
+
+
+state 15
+
+    (5) columnas -> columna .
+
+    RPAREN          reduce using rule 5 (columnas -> columna .)
+    COMA            reduce using rule 5 (columnas -> columna .)
+
+
+state 16
+
+    (6) columna -> IDENTIFICADOR tipo .
+
+    RPAREN          reduce using rule 6 (columna -> IDENTIFICADOR tipo .)
+    COMA            reduce using rule 6 (columna -> IDENTIFICADOR tipo .)
+
+
+state 17
+
+    (7) tipo -> INT .
+
+    RPAREN          reduce using rule 7 (tipo -> INT .)
+    COMA            reduce using rule 7 (tipo -> INT .)
+
+
+state 18
+
+    (8) tipo -> VARCHAR . LPAREN NUMERO RPAREN
+
+    LPAREN          shift and go to state 21
+
+
+state 19
+
+    (3) comando -> CREAR TABLE IDENTIFICADOR LPAREN columnas RPAREN . PUNTOYCOMA
+
+    PUNTOYCOMA      shift and go to state 22
+
+
+state 20
+
+    (4) columnas -> columnas COMA . columna
+    (6) columna -> . IDENTIFICADOR tipo
+
+    IDENTIFICADOR   shift and go to state 13
+
+    columna                        shift and go to state 23
+
+state 21
+
+    (8) tipo -> VARCHAR LPAREN . NUMERO RPAREN
+
+    NUMERO          shift and go to state 24
+
+
+state 22
+
+    (3) comando -> CREAR TABLE IDENTIFICADOR LPAREN columnas RPAREN PUNTOYCOMA .
+
+    $end            reduce using rule 3 (comando -> CREAR TABLE IDENTIFICADOR LPAREN columnas RPAREN PUNTOYCOMA .)
+
+
+state 23
+
+    (4) columnas -> columnas COMA columna .
+
+    RPAREN          reduce using rule 4 (columnas -> columnas COMA columna .)
+    COMA            reduce using rule 4 (columnas -> columnas COMA columna .)
+
+
+state 24
+
+    (8) tipo -> VARCHAR LPAREN NUMERO . RPAREN
+
+    RPAREN          shift and go to state 25
+
+
+state 25
+
+    (8) tipo -> VARCHAR LPAREN NUMERO RPAREN .
+
+    RPAREN          reduce using rule 8 (tipo -> VARCHAR LPAREN NUMERO RPAREN .)
+    COMA            reduce using rule 8 (tipo -> VARCHAR LPAREN NUMERO RPAREN .)
+
