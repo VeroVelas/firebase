@@ -3,15 +3,24 @@ from lexer import tokens
 
 def p_comando_crear_db(p):
     'comando : CREAR DATABASE IDENTIFICADOR PUNTOYCOMA'
-    p[0] = ('CREAR_DATABASE', p[3])
+    if not p[3].isidentifier() or not p[3][0].isalpha():
+        p[0] = f"Identificador inválido '{p[3]}'"
+    else:
+        p[0] = ('CREAR_DATABASE', p[3])
 
 def p_comando_usar_db(p):
     'comando : USAR DATABASE IDENTIFICADOR PUNTOYCOMA'
-    p[0] = ('USAR_DATABASE', p[3])
+    if not p[3].isidentifier() or not p[3][0].isalpha():
+        p[0] = f"Identificador inválido '{p[3]}'"
+    else:
+        p[0] = ('USAR_DATABASE', p[3])
 
 def p_comando_crear_tabla(p):
     'comando : CREAR TABLE IDENTIFICADOR LPAREN columnas RPAREN PUNTOYCOMA'
-    p[0] = ('CREAR_TABLA', p[3], p[5])
+    if not p[3].isidentifier() or not p[3][0].isalpha():
+        p[0] = f"Identificador inválido '{p[3]}'"
+    else:
+        p[0] = ('CREAR_TABLA', p[3], p[5])
 
 def p_columnas(p):
     'columnas : columnas COMA columna'
@@ -23,7 +32,10 @@ def p_columnas_una(p):
 
 def p_columna(p):
     'columna : IDENTIFICADOR tipo'
-    p[0] = (p[1], p[2])
+    if not p[1].isidentifier() or not p[1][0].isalpha():
+        p[0] = f"Identificador de columna inválido '{p[1]}'"
+    else:
+        p[0] = (p[1], p[2])
 
 def p_tipo(p):
     '''tipo : INT
@@ -44,5 +56,5 @@ parser = yacc.yacc()
 # Test Parser
 if __name__ == "__main__":
     data = 'CREAR DATABASE prueba;'
-    result = parser.parse(data, lexer=lexer)
+    result = parser.parse(data, lexer=lexer.lexer)
     print(result)
