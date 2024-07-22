@@ -90,10 +90,10 @@ def login():
     ip = data.get('ip')
     password = data.get('password')
 
-    # Aquí puedes agregar la lógica para verificar el IP y la contraseña
-    # Por ahora, solo vamos a simular una respuesta exitosa
+    # Lista de IPs válidas
+    valid_ips = ["192.168.10.56", "3.213.39.17"]
 
-    if ip == "192.168.10.56" and password == "password_correcto":
+    if ip in valid_ips and password == "12345678":
         return jsonify({"message": "Login exitoso"}), 200
     else:
         return jsonify({"error": "IP o contraseña incorrecta"}), 400
